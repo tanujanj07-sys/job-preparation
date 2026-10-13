@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Ledger — Interview Preparation Portal</title>
+
+  <meta
+    name="description"
+    content="Ledger is an interview preparation and DSA progress tracking portal."
+  >
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- ================= SIDEBAR ================= -->
+
+  <aside class="sidebar">
+
+    <div class="sidebar-brand">
+      <div class="brand-mark">L</div>
+      <span class="brand-name">LEDGER</span>
+    </div>
+
+    <nav class="sidebar-nav" id="sidebarNav">
+
+      <a href="#" class="nav-link active" data-nav="Dashboard">
+        <span class="nav-icon">⌂</span>
+        Dashboard
+      </a>
+
+      <a href="#" class="nav-link" data-nav="Topics">
+        <span class="nav-icon">▦</span>
+        Topics
+      </a>
+
+      <a href="#" class="nav-link" data-nav="Practice Kit">
+        <span class="nav-icon">✓</span>
+        Practice Kit
+      </a>
+
+      <a href="#" class="nav-link" data-nav="Saved Items">
+        <span class="nav-icon">☆</span>
+        Saved Items
+      </a>
+
+    </nav>
+
+    <!-- Streak -->
+
+    <div class="streak-card">
+
+      <div class="streak-header">
+        <p class="streak-label">Daily Streak</p>
+        <span id="streakCount">0 days</span>
+      </div>
+
+      <div class="streak-dots" id="streakDots"></div>
+
+      <p class="streak-message">
+        Keep solving every day!
+      </p>
+
+    </div>
+
+    <!-- Reset -->
+
+    <button class="reset-btn" id="resetProgress">
+      ↻ Reset Progress
+    </button>
+
+  </aside>
+
+
+  <!-- ================= MOBILE HEADER ================= -->
+
+  <header class="mobile-header">
+
+    <div class="mobile-brand">
+
+      <div class="brand-mark small">L</div>
+
+      <span class="brand-name">
+        LEDGER
+      </span>
+
+    </div>
+
+    <select id="mobileNavSelect" class="mobile-nav-select">
+
+      <option value="Dashboard">
+        Dashboard
+      </option>
+
+      <option value="Topics">
+        Topics
+      </option>
+
+      <option value="Practice Kit">
+        Practice Kit
+      </option>
+
+      <option value="Saved Items">
+        Saved Items
+      </option>
+
+    </select>
+
+  </header>
+
+
+  <!-- ================= MAIN ================= -->
+
+  <main class="main">
+
+    <div class="container">
+
+      <!-- Page Header -->
+
+      <header class="page-header">
+
+        <div>
+
+          <span class="eyebrow">
+            INTERVIEW PREPARATION
+          </span>
+
+          <h1 id="greeting">
+            Good morning, Tanuja.
+          </h1>
+
+          <p id="goalText">
+            You're 10 questions away from your Weekly Goal.
+          </p>
+
+        </div>
+
+        <div class="header-date" id="currentDate"></div>
+
+      </header>
+
+
+      <!-- ================= DASHBOARD STATS ================= -->
+
+      <section class="stats-grid">
+
+        <div class="stat-card">
+
+          <span class="stat-label">
+            Total Questions
+          </span>
+
+          <strong id="totalQuestions">
+            0
+          </strong>
+
+          <span class="stat-icon">📚</span>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <span class="stat-label">
+            Solved
+          </span>
+
+          <strong id="solvedQuestions">
+            0
+          </strong>
+
+          <span class="stat-icon">✓</span>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <span class="stat-label">
+            Remaining
+          </span>
+
+          <strong id="remainingQuestions">
+            0
+          </strong>
+
+          <span class="stat-icon">○</span>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <span class="stat-label">
+            Completion
+          </span>
+
+          <strong id="completionPercent">
+            0%
+          </strong>
+
+          <span class="stat-icon">↗</span>
+
+        </div>
+
+      </section>
+
+
+      <!-- ================= TOPICS ================= -->
+
+      <section class="section" id="topicsSection">
+
+        <div class="section-header">
+
+          <div>
+
+            <span class="section-kicker">
+              PROGRESS
+            </span>
+
+            <h2 class="section-title">
+              Active Topics
+            </h2>
+
+          </div>
+
+          <button
+            class="text-link hidden"
+            id="clearTopicFilter"
+          >
+            Clear filter
+          </button>
+
+        </div>
+
+
+        <div
+          class="topic-grid"
+          id="topicGrid"
+        ></div>
+
+      </section>
+
+
+      <!-- ================= PRACTICE ================= -->
+
+      <section
+        class="section"
+        id="practiceSection"
+      >
+
+        <div class="practice-header">
+
+          <div>
+
+            <span class="section-kicker">
+              PRACTICE
+            </span>
+
+            <h2 class="section-title">
+              Quick Practice
+            </h2>
+
+          </div>
+
+
+          <div class="practice-controls">
+
+            <div class="search-box">
+
+              <span>⌕</span>
+
+              <input
+                type="search"
+                id="searchInput"
+                placeholder="Search questions..."
+              >
+
+            </div>
+
+
+            <div
+              class="filter-pills"
+              id="difficultyFilters"
+            >
+
+              <button
+                class="pill active"
+                data-filter="All"
+              >
+                ALL
+              </button>
+
+              <button
+                class="pill"
+                data-filter="Easy"
+              >
+                EASY
+              </button>
+
+              <button
+                class="pill"
+                data-filter="Medium"
+              >
+                MEDIUM
+              </button>
+
+              <button
+                class="pill"
+                data-filter="Hard"
+              >
+                HARD
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="question-list"
+          id="questionList"
+        ></div>
+
+
+        <div
+          class="empty-state hidden"
+          id="emptyState"
+        >
+
+          <div class="empty-icon">
+            ∅
+          </div>
+
+          <h3>
+            No questions found
+          </h3>
+
+          <p>
+            Try changing your search or filters.
+          </p>
+
+          <button
+            class="primary-btn"
+            id="clearAllFilters"
+          >
+            Clear Filters
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- ================= SAVED ================= -->
+
+      <section
+        class="section saved-section hidden"
+        id="savedSection"
+      >
+
+        <div class="section-header">
+
+          <div>
+
+            <span class="section-kicker">
+              BOOKMARKS
+            </span>
+
+            <h2 class="section-title">
+              Saved Questions
+            </h2>
+
+          </div>
+
+        </div>
+
+        <div
+          class="question-list"
+          id="savedQuestionList"
+        ></div>
+
+        <div
+          class="empty-state"
+          id="savedEmptyState"
+        >
+
+          <div class="empty-icon">
+            ☆
+          </div>
+
+          <h3>
+            No saved questions
+          </h3>
+
+          <p>
+            Bookmark questions to access them later.
+          </p>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <!-- ================= RIGHT DECORATION ================= -->
+
+  <div class="sticky-tabs">
+
+    <div class="tab tab-accent"></div>
+    <div class="tab tab-success"></div>
+    <div class="tab tab-ink"></div>
+
+  </div>
+
+</div>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script src="script.js"></script>
+
+</body>
+</html>
